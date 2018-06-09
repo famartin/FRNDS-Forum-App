@@ -4,17 +4,20 @@
 <body>
 <%- include('nav'); -%>
 <br>
-<form>
+<form action="/login/signup" method="POST">
+  email:<br>
+  <input type="text" id="email" name="email" placeholder="enter your email">
+  <br><br>
   username:<br>
-  <input type="text" name="username">
+  <input type="text" id="username" name="username" placeholder="enter your username">
   <br><br>
   password:<br>
-  <input type="text" name="password">
+  <input type="text" id="password" name="password" placeholder="enter your password">
   <br><br>
   re enter password:<br>
-  <input type="text" name="password2">
+  <input type="text" id="password2" name="password2" placeholder="re enter your password">
   <br><br>
-  <input type="submit" value="Submit">
-</form> 
+  <button type="submit">Submit</button>
+</form>
 </body>
 </html>
