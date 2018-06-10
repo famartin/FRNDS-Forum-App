@@ -1,9 +1,22 @@
 <html>
 <head>
+<%- include('stylesheets'); -%>
 </head>
 <body>
+	<div class="container">
 	<%- include('nav'); -%>
 	<h1>Login</h1>
+	<form action="/login" method="POST">
+		<br>
+		username:<br>
+		<input type="text" id="username" name="username" placeholder="enter your username" required>
+		<br><br>
+		password:<br>
+		<input type="text" id="password" name="password" placeholder="enter your password" required>
+		<br><br>
+		<button type="submit">Submit</button>
+	</form>
 	<p>New User? Sign up <a href="/login/signup">here</a></p>
+	</div>
 </body>
 </html>

@@ -1,23 +1,35 @@
 <html>
 <head>
+<%- include('stylesheets'); -%>
 </head>
 <body>
+<div class="container">
 <%- include('nav'); -%>
 <br>
+<h1>Sign Up</h1>
+<% if (typeof errors != 'undefined') { %>
+<% for(var i=0; i < errors.length; i++) { %>
+	<div class="alert alert-danger" role="alert">
+	<%= errors[i].msg %>
+	</div>
+<% } %>
+<br>
+<% } %>
 <form action="/login/signup" method="POST">
   email:<br>
-  <input type="text" id="email" name="email" placeholder="enter your email">
+  <input type="text" id="email" name="email" placeholder="enter your email" required>
   <br><br>
   username:<br>
-  <input type="text" id="username" name="username" placeholder="enter your username">
+  <input type="text" id="username" name="username" placeholder="enter your username" required>
   <br><br>
   password:<br>
-  <input type="text" id="password" name="password" placeholder="enter your password">
+  <input type="text" id="password" name="password" placeholder="enter your password" required>
   <br><br>
   re enter password:<br>
-  <input type="text" id="password2" name="password2" placeholder="re enter your password">
+  <input type="text" id="password2" name="password2" placeholder="re enter your password" required>
   <br><br>
   <button type="submit">Submit</button>
 </form>
+</div>
 </body>
 </html>
