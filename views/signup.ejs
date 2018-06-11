@@ -15,8 +15,21 @@
 <% } %>
 <br>
 <% } %>
+<% if (typeof uniqueErrors != 'undefined') { %>
+	<% if (typeof uniqueErrors.errors.username != 'undefined') { %>
+		<div class="alert alert-danger" role="alert">
+			<%= uniqueErrors.errors.username.message %>
+			</div>
+	<% } %>
+	<% if (typeof uniqueErrors.errors.email != 'undefined') { %>
+		<div class="alert alert-danger" role="alert">
+			<%= uniqueErrors.errors.email.message %>
+		</div>
+	<% } %>
+<br>
+<% } %>
 <form action="/login/signup" method="POST">
-  email:<br>
+  <br>email:<br>
   <input type="text" id="email" name="email" placeholder="enter your email" required>
   <br><br>
   username:<br>
@@ -30,6 +43,7 @@
   <br><br>
   <button type="submit">Submit</button>
 </form>
+<p>Already a user? <br>Login <a href="/login">here</a></p>
 </div>
 </body>
 </html>

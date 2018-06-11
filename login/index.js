@@ -4,6 +4,7 @@ const db = require('../db.js');
 const expressValidator = require('express-validator');
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
+const passport = require('passport');
 
 var checkFormFields = function(req){
 	var u = 'username';
@@ -36,7 +37,7 @@ router.post('/signup', function(req, res, next){
 
 	var errors = req.validationErrors();
 	if (errors){
-		console.log(`errors: ${JSON.stringify(errors)}`);
+		//console.log(`errors: ${JSON.stringify(errors)}`);
 		res.render('signup', {errors: errors});
 	}
 	else{
@@ -48,11 +49,32 @@ router.post('/signup', function(req, res, next){
 		});
 
 		user.save(function(err){
-			if (err) throw (err);
+			if (err){
+				//console.log(err);
+				res.render('signup', {uniqueErrors: err});
+			}
+			else{
+				req.login(user, function(err) {
+					if (err)
+						console.log(err);
+					//res.redirect('/');
+				});
+				res.redirect('/');
+			}
 		});
 
-		res.redirect('/');
+		//res.redirect('/');
 	}
+});
+
+passport.serializeUser(function(id, done) {
+  done(null, id);
+});
+ 
+passport.deserializeUser(function(id, done) {
+  db.User.findById(id, function (err, user) {
+    done(err, id);
+  });
 });
 
 module.exports = router;
