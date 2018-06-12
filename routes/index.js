@@ -23,8 +23,12 @@ var checkFormFields = function(req){
 	req.checkBody(`${p2}`, `${p}s do not match`).equals(req.body.password);
 }
 
-router.get('/', function(req, res){
+router.get('/login', function(req, res){
 	res.render('login');
+});
+
+router.post('/login', function(req, res){
+	
 });
 
 router.get('/signup', function(req, res){
@@ -62,9 +66,11 @@ router.post('/signup', function(req, res, next){
 				res.redirect('/');
 			}
 		});
-
-		//res.redirect('/');
 	}
+});
+
+router.get('/profile', authenticationMiddleware(), function(req, res){
+	res.render('profile');
 });
 
 passport.serializeUser(function(id, done) {
@@ -76,5 +82,15 @@ passport.deserializeUser(function(id, done) {
     done(err, id);
   });
 });
+
+function authenticationMiddleware () {  
+	return (req, res, next) => {
+		console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
+
+		if (req.isAuthenticated())
+			return next();
+		res.redirect('/login')
+	}
+}
 
 module.exports = router;

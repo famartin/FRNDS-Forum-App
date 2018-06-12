@@ -1,9 +1,11 @@
 var express = require('express');
-var login = require('./login/index');
+var routes = require('./routes/index');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var session = require('express-session');
 var passport = require('passport');
+var db = require('./db.js');
+var MongoStore = require('connect-mongo')(session);
 var randomString = require('randomstring');
 var app = express();
 var port = 3000;
@@ -15,19 +17,23 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 
+var sessionStore = new MongoStore({ mongooseConnection: db.db });
+
 app.use(session({
-  secret: randomString.generate(),
-  resave: false,
-  saveUninitialized: false,
-  //cookie: { secure: true }
+	secret: 'dygjayvwaydjyayfgesj',
+	resave: false,
+	store: sessionStore,
+	saveUninitialized: false,
+	//cookie: { secure: true }
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/login', login);
+app.use('/', routes);
 
 app.get('/', function(req, res){
-	console.log('user: ' + req.user);
+	console.log('user: ' + JSON.stringify(req.user, ['username']));
 	console.log('authenticated: ' + req.isAuthenticated());
 	res.render('home');
 });
