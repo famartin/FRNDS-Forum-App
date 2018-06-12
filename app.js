@@ -3,6 +3,7 @@ var routes = require('./routes/index');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var session = require('express-session');
+var keys = require('./keys.js');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var db = require('./db.js');
@@ -22,7 +23,7 @@ app.use(expressValidator());
 var sessionStore = new MongoStore({ mongooseConnection: db.db });
 
 app.use(session({
-	secret: 'dygjayvwaydjyayfgesj',
+	secret: keys.sessionSecret,
 	resave: false,
 	store: sessionStore,
 	saveUninitialized: false,

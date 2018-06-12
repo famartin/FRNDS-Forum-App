@@ -33,6 +33,12 @@ router.post('/login', passport.authenticate(
 	failureRedirect: '/login'
 }));
 
+router.get('/logout', function(req, res){
+	req.logout();
+	req.session.destroy();
+	res.redirect('/');
+});
+
 router.get('/signup', function(req, res){
 	res.render('signup');
 });
