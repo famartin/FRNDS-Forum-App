@@ -1,0 +1,48 @@
+<html>
+<head>
+<%- include('stylesheets'); -%>
+</head>
+<body>
+<div class="container">
+<%- include('nav'); -%>
+<br>
+<h1>Update</h1>
+<% if (typeof errors != 'undefined') { %>
+<% for(var i=0; i < errors.length; i++) { %>
+	<div class="alert alert-danger" role="alert">
+	<%= errors[i].msg %>
+	</div>
+<% } %>
+<br>
+<% } %>
+<% if (typeof uniqueErrors != 'undefined') { %>
+	<% if (typeof uniqueErrors.errors.username != 'undefined') { %>
+		<div class="alert alert-danger" role="alert">
+			<%= uniqueErrors.errors.username.message %>
+			</div>
+	<% } %>
+	<% if (typeof uniqueErrors.errors.email != 'undefined') { %>
+		<div class="alert alert-danger" role="alert">
+			<%= uniqueErrors.errors.email.message %>
+		</div>
+	<% } %>
+<br>
+<% } %>
+<form action="/profile/<%= username %>/edit" method="POST">
+  <br>First Name:<br>
+  <input type="text" id="firstName" name="firstName" value="<%= user.firstName %>" required>
+  <br><br>
+  Last Name:<br>
+  <input type="text" id="lastName" name="lastName" value="<%= user.lastName %>" required>
+  <br><br>
+  email:<br>
+  <input type="text" id="email" name="email" value="<%= user.email %>" required>
+  <br><br>
+  username:<br>
+  <input type="text" id="username" name="username" value="<%= user.username %>" required>
+  <br><br>
+  <button type="submit">Update</button>
+</form>
+</div>
+</body>
+</html>

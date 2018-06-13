@@ -1,5 +1,6 @@
 var express = require('express');
-var routes = require('./routes/index');
+var users = require('./routes/users');
+var post = require('./routes/post');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var session = require('express-session');
@@ -33,7 +34,19 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', routes);
+app.use(function(req, res, next){
+	res.locals.isAuthenticated = req.
+		isAuthenticated();
+	if (req.isAuthenticated() == true){
+		res.locals.username = req.session.
+			passport.user.username;
+	}
+	else
+		res.locals.username = "";
+	next();
+});
+
+app.use('/', users, post);
 
 passport.use(new LocalStrategy(
   function(username, password, done) {

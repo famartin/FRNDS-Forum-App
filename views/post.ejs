@@ -1,0 +1,27 @@
+<html>
+<head>
+<%- include('stylesheets'); -%>
+</head>
+<body>
+<div class="container">
+<%- include('nav'); -%>
+<br>
+<h1>Post</h1>
+<form>
+  <div class="form-group">
+    <label for="postTitle">Title</label>
+    <input type="text" class="form-control" id="postTitle">
+  </div>
+  <div class="form-group">
+    <label for="postUrl">Url</label>
+    <input type="url" class="form-control" id="postUrl" placeholder="[optional]">
+  </div>
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+</body>
+</html>

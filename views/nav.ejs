@@ -1,7 +1,12 @@
 <nav>
 <a href="/">HOME</a>
+<% if (isAuthenticated == false) { %>
 <a href="/login">LOGIN</a>
+<% } %>
+<a href="/post">POST</a>
 <a href="#">CHAT</a>
-<a href="/profile">PROFILE</a>
+<% if (isAuthenticated == true) { %>
+<a href="/profile/<%= username %>">PROFILE</a>
 <a href="/logout">LOGOUT</a>
+<% } %>
 </nav>

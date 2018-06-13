@@ -6,6 +6,15 @@
 <div class="container">
 <%- include('nav'); -%>
 <h1>Profile</h1>
+<% if (username == user.username) { %>
+	<p><a href="/profile/<%= user.username %>/edit">Edit Profile</a></p>
+<% } %>
+<p><%= user.firstName %> <%= user.lastName %></p>
+<p><%= user.username %></p>
+<p><%= user.email %></p>
+<% if (username == user.username) { %>
+<p><a href="/profile/<%= user.username %>/remove">Delete Account</a></p>
+<% } %>
 </div>
 </body>
 </html>
