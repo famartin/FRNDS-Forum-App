@@ -1,25 +1,26 @@
 <html>
 <head>
-<%- include('stylesheets'); -%>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Login</title>
+	<%- include('stylesheets'); -%>
+	<%- include('js'); -%>
 </head>
-<body>
-	<div class="container">
+<body class="text-center">
 	<%- include('nav'); -%>
-	<br>
-	<h1>Login</h1>
-	<br>
-	<form action="/login" method="POST">
-		<div class="form-group">
-		<label for="username">Username</label>
-		<input type="text" class="form-control" id="username" name="username" required>
-		</div>
-		<div class="form-group">
-		<label for="password">Password</label>	
-		<input type="password" class="form-control" id="password" name="password" required>
-		</div>
-		<button type="submit" class="btn btn-primary">Submit</button>
+	<div id="signInContainer" class="container">
+	<form class="form-signin" action="/login" method="POST">
+		<h1 class="h3 mb-3 font-weight-normal">Please Log In</h1>
+		<label for="username" class="sr-only">Username</label>
+		<input type="text" class="form-control" id="username" name="username" placeholder="Username" required autofocus>
+		<label for="password" class="sr-only">Password</label>	
+		<input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+		<button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+		<p class="mt-5 mb-3 text-muted">New user?<br><a href="/signup">Sign Up</a></p>
 	</form>
-	<p>New User?<br>Sign up <a href="/signup">here</a></p>
 	</div>
 </body>
 </html>

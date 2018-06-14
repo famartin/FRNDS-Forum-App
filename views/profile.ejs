@@ -1,10 +1,11 @@
 <html>
 <head>
 <%- include('stylesheets'); -%>
+<%- include('js'); -%>
 </head>
 <body>
-<div class="container">
 <%- include('nav'); -%>
+<div class="container">
 <h1>Profile</h1>
 <% if (username == user.username) { %>
 	<p><a href="/profile/<%= user.username %>/edit">Edit Profile</a></p>

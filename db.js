@@ -22,7 +22,6 @@ var	userSchema = new Schema({
 
 var	postSchema = new Schema({
 	title:		{type: String, required: true},
-	url:		{type: String},
 	text:		{type: String},
 	author:		{type: String, required: true},
 	date:		{type: Date, default: Date.now}

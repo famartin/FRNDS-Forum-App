@@ -8,6 +8,10 @@ router.get('/post', authenticationMiddleware(), function(req, res){
 	res.render('post');
 });
 
+router.post('/post', authenticationMiddleware(), function(req, res){
+	
+});
+
 function authenticationMiddleware () {
 	return (req, res, next) => {
 		//console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport.user.username)}`);
