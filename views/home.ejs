@@ -1,13 +1,22 @@
 <html>
 	<head>
-		<%- include('stylesheets'); -%>
-		<%- include('js'); -%>
-		<title>hello world</title>
+		<%- include('head'); -%>
 	</head>
-	<body>
-	<%- include('nav'); -%>
-	<div class="container">
-		<h1>Home Page</h1>
-	</div>
+	<body class="text-center">
+		<%- include('nav'); -%>
+		<div class="container">
+			<% if (isAuthenticated == true) { %>
+				<h2 class="raleway">Hi   <%= firstName %>,</h2><br>
+			<% }else { %>
+				<h2 class="raleway">Hi there,</h2></br>
+			<% } %>
+			<% if (typeof posts != undefined) { %>
+				<div style="color:black;" class="list-group shadow-sm p-1 rounded">
+					<% for(var i=posts.length - 1; i >= 0; i--) { %>
+     						<a href="/show-post/<%= posts[i]._id %>" class="list-group-item list-group-item-action"><%= posts[i].title %></a>
+					<% } %>
+				</div>
+			<% } %>
+		</div>
 	</body>
 </html>

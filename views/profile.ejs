@@ -1,21 +1,32 @@
 <html>
-<head>
-<%- include('stylesheets'); -%>
-<%- include('js'); -%>
-</head>
-<body>
-<%- include('nav'); -%>
-<div class="container">
-<h1>Profile</h1>
-<% if (username == user.username) { %>
-	<p><a href="/profile/<%= user.username %>/edit">Edit Profile</a></p>
-<% } %>
-<p><%= user.firstName %> <%= user.lastName %></p>
-<p><%= user.username %></p>
-<p><%= user.email %></p>
-<% if (username == user.username) { %>
-<p><a href="/profile/<%= user.username %>/remove">Delete Account</a></p>
-<% } %>
-</div>
-</body>
+	<head>
+		<%- include('head'); -%>
+	</head>
+	<body class="text-center">
+		<%- include('nav'); -%>
+		<div class="container">
+			<h2 class="raleway"><%= user.firstName %>'s posts</h2>
+			<h3 class="raleway">(<%= user.username %>)</h3>
+			<% if (typeof posts != undefined) { %>
+                                <div style="color:black;"class="list-group shadow-sm p-1 rounded">
+                                        <% for(var i=posts.length - 1; i >= 0; i--) { %>
+                                                <a style="color:grey;" href="/show-post/<%= posts[i]._id %>" class="list-group-item list-group-item-a    ction"><%= posts[i].title %></a>
+                                        <% } %>
+                                </div>
+                        <% } %>
+			<br>
+			<% if (username == user.username) { %>
+				<a href="/profile/<%= user.username %>/edit">
+					<button type="button" class="btn btn-light">
+						Edit Profile
+					</button>
+				</a>
+				<a href="/profile/<%= user.username %>/remove">
+					<button type="button" class="btn btn-secondary">
+						Delete Account
+					</button>
+				</a>
+			<% } %>
+		</div>
+	</body>
 </html>

@@ -1,6 +1,15 @@
 body {
-  background-color: #a8dbd1;
-  padding-top: 8%;
+  background-color: #adccb9;
+  padding-top: 16%;
+  color: white;
+}
+
+.raleway {
+  font-family: "Raleway", sans-serif;
+}
+
+nav {
+  background-color: #adccb9;
 }
 
 #signInContainer {

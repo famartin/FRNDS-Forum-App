@@ -1,0 +1,16 @@
+<html>
+	<head>
+		<%- include('head'); -%>
+	</head>
+	<body class="text-center">
+		<%- include('nav'); -%>
+		<div class="container">
+			<h2 class="raleway m-3"><%= post.title %></h2>
+			<% if (post.text != "") { %>
+				<div style="color:#545454;" class="shadow-sm p-4 mb-5 bg-white rounded">
+					<p><%= post.text %></p>
+				</div>
+			<% } %>
+		</div>
+	</body>
+</html>

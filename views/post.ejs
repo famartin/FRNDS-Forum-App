@@ -1,22 +1,50 @@
 <html>
-<head>
-<%- include('stylesheets'); -%>
-<%- include('js'); -%>
-</head>
-<body>
-<%- include('nav'); -%>
-<div class="container">
-<br>
-<h1>Post</h1>
-<form action="/post" method="POST">
-  <div class="form-group">
-    <input type="text" class="form-control" id="postTitle" name="postTitle" placeholder="Title" autofocus required>
-  </div>
-  <div class="form-group">
-    <textarea class="form-control" id="postText" rows="8" placeholder="Text(optional)"></textarea>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-</div>
-</body>
+	<head>
+		<%- include('head'); -%>
+	</head>
+	<body>
+	<%- include('nav'); -%>
+	<div class="container">
+		<h2 class="raleway">Post</h2>
+		<% if (typeof errors != 'undefined') { %>
+			<% for(var i=0; i < errors.length; i++) { %>
+				<div class="alert alert-danger" role="alert">
+					<%= errors[i].msg %>
+				</div>
+			<% } %>
+		<% } %>
+		<ul class="nav nav-tabs" id="postTab" role="tablist">
+  			<li class="nav-item">
+    				<a class="nav-link active" id="post-tab" data-toggle="tab" href="#post" role="tab" aria-controls="post" aria-selected="true">Post</a>
+  			</li>
+			<li class="nav-item">
+    				<a class="nav-link" id="link-tab" data-toggle="tab" href="#link" role="tab" aria-controls="profile" aria-selected="false">Link</a>
+  			</li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="post-tab">
+				<form action="/post" method="POST">
+  					<div class="form-group">
+    						<input type="text" class="form-control" id="postTitle" name="postTitle" placeholder="Title" autofocus required>
+  					</div>
+  					<div class="form-group">
+    						<textarea  type="text" class="form-control" id="postText" name="postText" rows="8" placeholder="Text(optional)"></textarea>
+  					</div>
+  					<button type="submit" class="btn btn-light"> Post </button>
+				</form>
+			</div>
+			<div class="tab-pane fade" id="link" role="tabpanel" aria-labelledby="link-tab">
+				<form action="/post/link" method="POST">
+  					<div class="form-group">
+    						<input type="text" class="form-control" id="postTitle" name="postTitle" placeholder="Title" autofocus required>
+  					</div>
+  					<div class="form-group">
+    						<textarea  type="url" class="form-control" id="postUrl" name="postUrl" rows="2" placeholder="Url"></textarea>
+  					</div>
+  					<button type="submit" class="btn btn-light"> Post </button>
+				</form>
+			</div>
+		</div>
+	</div>
+	</body>
 </html>

@@ -41,6 +41,8 @@ app.use(function(req, res, next){
 	if (req.isAuthenticated() == true){
 		res.locals.username = req.session.
 			passport.user.username;
+		res.locals.firstName = req.session.
+			passport.user.firstName;
 	}
 	else
 		res.locals.username = "";
@@ -71,7 +73,15 @@ passport.use(new LocalStrategy(
 app.get('/', function(req, res){
 	console.log('user: ' + JSON.stringify(req.user, ['username']));
 	console.log('authenticated: ' + req.isAuthenticated());
-	res.render('home');
+	db.Post.find(function(err, posts){
+		if (err) throw err;
+		console.log(posts);
+		if (posts != null)
+			res.render('home', {posts: posts})
+		else
+			res.render('home');
+	});
+	//res.render('home');
 });
 
 app.listen(port);

@@ -87,7 +87,10 @@ router.get('/profile/:username', function(req, res){
 		if (err) throw err;
 		console.log(user)
 		if (user != null)
-			res.render('profile', {user: user});
+			db.Post.find({ author: req.params.username }, function(err, posts){
+				if(err) throw err;
+				res.render('profile', {user: user, posts: posts});
+			});
 		else
 			res.render('404');
 	});
