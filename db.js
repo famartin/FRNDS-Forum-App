@@ -12,7 +12,7 @@ db.once('open', function(){
 	console.log('Database is connected!');
 });
 
-var	userSchema = new Schema({
+var	userSchema = 	new Schema({
 	firstName:	{type: String, required: true},
 	lastName:	{type: String, required: true},
 	email:		{type: String, unique: true, required: true},
@@ -20,12 +20,20 @@ var	userSchema = new Schema({
 	password:	{type: String, required: true}
 });
 
-var	postSchema = new Schema({
+var	postSchema = 	new Schema({
 	title:		{type: String, required: true},
 	text:		{type: String},
 	author:		{type: String, required: true},
 	date:		{type: Date, default: Date.now}
 	
+});
+
+var	commentSchema =	new Schema({
+	text:		{type: String, required: true},
+	author:		{type: String, required: true},
+	date:		{type: Date, default: Date.now},
+	postId:		{type: String, required: true}
+		
 });
 
 userSchema.plugin(uniqueValidator, { message: 'This {PATH} is already taken, please choose another.' });
