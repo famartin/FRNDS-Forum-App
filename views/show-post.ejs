@@ -5,11 +5,50 @@
 	<body class="text-center">
 		<%- include('nav'); -%>
 		<div class="container">
-			<h2 class="raleway m-3"><%= post.title %></h2>
+			<h2 class="raleway"><%= post.title %></h2>
+			<h4 class="raleway m-3">by <a style="color:grey;text-decoration:none;"href="/profile/<%= post.author %>"><%= post.author %></a></h4>
 			<% if (post.text != "") { %>
-				<div style="color:#545454;" class="shadow-sm p-4 mb-5 bg-white rounded">
+				<div style="color:#545454;" class="shadow-sm p-4 mb-4 bg-white rounded">
 					<p><%= post.text %></p>
 				</div>
+			<% } %>
+			<% if (isAuthenticated == true) { %>
+				<form action="/comment/<%= post._id %>" method="POST">
+					<div class="form-group">
+						<textarea class="shadow-sm form-control" id="comment" name="comment" rows="2" placeholder="What are your thoughts?" required></textarea>
+					</div>
+					<button type="submit" class="btn btn-light">Comment</button>
+					<% if (username == post.author) { %>
+					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#removeConfirmation">Remove</button>
+					<div style="color:black;" class="modal fade" id="removeConfirmation" tabindex="-1" role="dialog" aria-labelledby="removeConfirmation" aria-hidden="true">
+  						<div class="modal-dialog modal-dialog-centered" role="document">
+    							<div class="modal-content">
+      								<div class="modal-header">
+        								<h5 class="modal-title raleway" id="removeConfirmationTitle">Wait a minute...</h5>
+        								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          									<span aria-hidden="true">&times;</span>
+        								</button>
+      								</div>
+      								<div class="modal-body raleway">
+        								Are you sure you wish to remove the post?<br>This is permanent.
+      								</div>
+      								<div class="modal-footer">
+        								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        								<a href="/remove/<%= post._id %>"><button type="button" class="btn btn-danger">Delete</button></a>
+      								</div>
+    							</div>
+  						</div>
+					</div>
+					<% } %>
+				</form>
+			<% } %>
+			<% if (typeof comments != 'undefined') { %>
+				<ul>
+				<% for(var i=comments.length - 1;i >= 0;i--) { %>
+					<li style="text-align:left;"><%= comments[i].text %>
+					<small><%= comments[i].author %></small></li>
+				<% } %>
+				</ul>
 			<% } %>
 		</div>
 	</body>

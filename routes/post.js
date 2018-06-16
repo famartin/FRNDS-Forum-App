@@ -4,9 +4,13 @@ const db = require('../db.js');
 const expressValidator = require('express-validator');
 const passport = require('passport');
 
-var checkFormFields = function(req){
+var checkPostFields = function(req){
 	req.checkBody('postTitle', 'Title can not be empty.').notEmpty();
 	req.checkBody('postTitle', 'Title must be between 1-70 characters long.').len(1, 70);
+}
+
+var checkCommentFields = function(req){
+	req.checkBody('comment', 'Comment can not be empty.').notEmpty();
 }
 
 router.get('/post', authenticationMiddleware(), function(req, res){
@@ -14,7 +18,7 @@ router.get('/post', authenticationMiddleware(), function(req, res){
 });
 
 router.post('/post', authenticationMiddleware(), function(req, res){
-	checkFormFields(req);
+	checkPostFields(req);
 	console.log(req.body);
 
 	var errors = req.validationErrors();
@@ -39,10 +43,55 @@ router.get('/show-post/:id', function(req, res){
 	db.Post.findById(req.params.id, function(err, post){
 		if (err) throw err;
 		if (post != null)
-			res.render('show-post', {post: post});
+			db.Comment.find({postId: req.params.id}, function(err, comments){
+				if (err) throw err;
+				if (comments != null)
+					res.render('show-post', {post: post, comments: comments});
+				else
+					res.render('show-post', {post: post});
+					
+			});
 		else
 			res.redirect('/');
 	});
+});
+
+router.get('/remove/:id', authenticationMiddleware(), function(req, res){
+	db.Post.findById(req.params.id, function(err, post){
+		if(err) throw err;
+		if(post != null) {
+			if (req.session.passport.user.username == post.author){
+				db.Post.findByIdAndRemove(post._id, function(err){
+					if(err) throw err;
+					res.redirect('/');
+					
+				});
+			}else
+				res.redirect('/');
+		}
+		else
+			res.redirect('/');
+	})
+});
+
+router.post('/comment/:postId', authenticationMiddleware(), function(req, res){
+	checkCommentFields(req);
+	console.log(req.body);
+	var errors = req.validationErrors();
+	if(errors){
+		res.redirect('/');
+	}else{
+		var comment = new db.Comment({
+			text: req.body.comment,
+			author: req.session.passport.user.username,
+			postId: req.params.postId
+		});
+
+		comment.save(function(err){
+			if(err) throw err;
+			res.redirect('back');
+		});
+	}
 });
 
 function authenticationMiddleware () {

@@ -17,7 +17,8 @@ var	userSchema = 	new Schema({
 	lastName:	{type: String, required: true},
 	email:		{type: String, unique: true, required: true},
 	username:	{type: String, unique: true, required: true},
-	password:	{type: String, required: true}
+	password:	{type: String, required: true},
+	img:		{data: Buffer, contentType: String}
 });
 
 var	postSchema = 	new Schema({
@@ -38,11 +39,13 @@ var	commentSchema =	new Schema({
 
 userSchema.plugin(uniqueValidator, { message: 'This {PATH} is already taken, please choose another.' });
 
-var 	User = mongoose.model('User', userSchema);
-var	Post = mongoose.model('Post', postSchema);
+var 	User = 		mongoose.model('User', userSchema);
+var	Post =		mongoose.model('Post', postSchema);
+var	Comment =	mongoose.model('Comment', commentSchema);
 
 module.exports = {
 	db,
 	User,
-	Post
+	Post,
+	Comment
 };
