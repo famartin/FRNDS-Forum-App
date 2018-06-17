@@ -7,6 +7,8 @@ var session = require('express-session');
 var keys = require('./keys.js');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var socket = require('socket.io');
+var io = socket(server);
 var db = require('./db.js');
 var MongoStore = require('connect-mongo')(session);
 var randomString = require('randomstring');
@@ -34,6 +36,10 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+io.on('connection', function(socket){
+	console.log('made socket connection');
+});
 
 app.use(function(req, res, next){
 	res.locals.isAuthenticated = req.
@@ -81,8 +87,9 @@ app.get('/', function(req, res){
 		else
 			res.render('home');
 	});
-	//res.render('home');
 });
 
-app.listen(port);
+
+
+var server = app.listen(port);
 console.log(`Listening on port ${port}`);

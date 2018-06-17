@@ -68,10 +68,9 @@ router.get('/remove/:id', authenticationMiddleware(), function(req, res){
 				});
 			}else
 				res.redirect('/');
-		}
-		else
+		}else
 			res.redirect('/');
-	})
+	});
 });
 
 router.post('/comment/:postId', authenticationMiddleware(), function(req, res){
@@ -92,6 +91,22 @@ router.post('/comment/:postId', authenticationMiddleware(), function(req, res){
 			res.redirect('back');
 		});
 	}
+});
+
+router.get('/comment/remove/:id', authenticationMiddleware(), function(req, res){
+	db.Comment.findById(req.params.id, function(err, comment){
+		if(err) throw err;
+		if(comment != null){
+			if(req.session.passport.user.username == comment.author){
+				db.Comment.findByIdAndRemove(comment._id, function(err){
+					if(err) throw err;
+					res.redirect('back');
+				});
+			}else
+				res.redirect('back');
+		}else
+			res.redirect('back');
+	});
 });
 
 function authenticationMiddleware () {
