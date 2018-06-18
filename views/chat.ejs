@@ -1,0 +1,20 @@
+<html>
+<head>
+<%- include('head'); -%>
+</head>
+<body>
+<%- include('nav'); -%>
+<div class="container">
+	<h2 class="raleway">Chat</h2>
+	<div style="color:black;" class="shadow-sm p-3 mb-4 bg-white rounded">
+	<ul style="list-style-type:none;" id="messages"></ul>
+	</div>
+		<form style="background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%;" action="">
+			<input style="border: 0; padding: 10px; width: 90%; margin-right: .5%;" id="m" autocomplete="off" /><button>Send</button>
+		</form>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+		<script src="/js/chat.js"></script>
+</div>
+</body>
+</html>

@@ -1,18 +1,19 @@
 var express = require('express');
 var users = require('./routes/users');
 var post = require('./routes/post');
+var chat = require('./routes/chat');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var session = require('express-session');
 var keys = require('./keys.js');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var socket = require('socket.io');
-var io = socket(server);
 var db = require('./db.js');
 var MongoStore = require('connect-mongo')(session);
 var randomString = require('randomstring');
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var bcrypt = require('bcryptjs');
 var port = 3000;
 
@@ -37,9 +38,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-io.on('connection', function(socket){
-	console.log('made socket connection');
-});
 
 app.use(function(req, res, next){
 	res.locals.isAuthenticated = req.
@@ -55,7 +53,7 @@ app.use(function(req, res, next){
 	next();
 });
 
-app.use('/', users, post);
+app.use('/', users, post, chat);
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
@@ -89,7 +87,16 @@ app.get('/', function(req, res){
 	});
 });
 
+io.on('connection', function(socket){
+	socket.on('chat message', function(msg){
+		console.log('message: ' + msg);
+		socket.broadcast.emit('chat message', msg);
+	});
+	socket.on('disconnect', function(){
+		socket.broadcast.emit('chat message', 'left the room');
+	});
+});
 
-
-var server = app.listen(port);
-console.log(`Listening on port ${port}`);
+http.listen(port, function(){
+	console.log(`Listening on port ${port}`);
+});
