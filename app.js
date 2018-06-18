@@ -88,12 +88,19 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
+	console.log(socket.id);
+	socket.broadcast.emit('chat message', ' entered the room');
 	socket.on('chat message', function(msg){
 		console.log('message: ' + msg);
 		socket.broadcast.emit('chat message', msg);
 	});
+	
+	socket.on('typing', function(data){
+		socket.broadcast.emit('typing', data);
+	});
+	
 	socket.on('disconnect', function(){
-		socket.broadcast.emit('chat message', 'left the room');
+		socket.broadcast.emit('chat message', ' left the room');
 	});
 });
 

@@ -6,11 +6,55 @@ body{
 }
 
 .raleway{
-	font-family: 'Raleway', sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
 nav{
   background-color: #adccb9;//#90ccc0;
+}
+
+#chat{
+  max-width: 95%;
+  margin: 3vw auto;
+  box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+}
+
+#chat-window{
+  height: 400px;
+  overflow: auto;
+  background: white;
+}
+
+#chat-button{
+  background: #7e92b2;
+  color: #fff;
+  font-size: 18px;
+  border: 0;
+  padding: 12px 0;
+  width: 100%;
+  border-radius: 0 0 2px 2px;
+}
+
+#output p{
+  padding: 14px 0px;
+  margin: 0 20px;
+  border-bottom: 1px solid #e9e9e9;
+  color: #555;
+}
+
+#feedback p{
+  color: #aaa;
+  padding: 14px 0px;
+  margin: 0 20px;
+}
+
+#m{
+  padding: 10px 20px;
+  box-sizing: border-box;
+  background-color: #f7f7f7;
+  display: block;
+  width: 100%;
+  border: 1px solid #c6c6c6;
 }
 
 #signInContainer{
