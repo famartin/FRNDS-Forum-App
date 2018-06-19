@@ -4,24 +4,34 @@ const db = require('../db.js');
 const expressValidator = require('express-validator');
 const passport = require('passport');
 
+/** Check Post Form Fields **/
+
 var checkPostFields = function(req){
 	req.checkBody('postTitle', 'Title can not be empty.').notEmpty();
 	req.checkBody('postTitle', 'Title must be between 1-70 characters long.').len(1, 70);
 }
 
+/** Check Comment Form Fields **/
+
 var checkCommentFields = function(req){
 	req.checkBody('comment', 'Comment can not be empty.').notEmpty();
 }
+
+/** Post GET Route **/
 
 router.get('/post', authenticationMiddleware(), function(req, res){
 	res.render('post');
 });
 
+/** Post POST Route **/
+
 router.post('/post', authenticationMiddleware(), function(req, res){
+	
 	checkPostFields(req);
 	console.log(req.body);
 
 	var errors = req.validationErrors();
+
 	if(errors){
 		res.render('post', {errors: errors});
 	}
@@ -39,7 +49,10 @@ router.post('/post', authenticationMiddleware(), function(req, res){
 	}
 });
 
+/** Show Post GET Route **/
+
 router.get('/show-post/:id', function(req, res){
+	
 	db.Post.findById(req.params.id, function(err, post){
 		if (err) throw err;
 		if (post != null)
@@ -55,6 +68,8 @@ router.get('/show-post/:id', function(req, res){
 			res.redirect('/');
 	});
 });
+
+/** Remove Post GET Route **/
 
 router.get('/remove/:id', authenticationMiddleware(), function(req, res){
 	db.Post.findById(req.params.id, function(err, post){
@@ -72,6 +87,8 @@ router.get('/remove/:id', authenticationMiddleware(), function(req, res){
 			res.redirect('/');
 	});
 });
+
+/** Comment POST Route **/
 
 router.post('/comment/:postId', authenticationMiddleware(), function(req, res){
 	checkCommentFields(req);
@@ -93,6 +110,8 @@ router.post('/comment/:postId', authenticationMiddleware(), function(req, res){
 	}
 });
 
+/** Remove Comment GET Route **/
+
 router.get('/comment/remove/:id', authenticationMiddleware(), function(req, res){
 	db.Comment.findById(req.params.id, function(err, comment){
 		if(err) throw err;
@@ -109,10 +128,10 @@ router.get('/comment/remove/:id', authenticationMiddleware(), function(req, res)
 	});
 });
 
+/** Checks to see if a User is in a session **/
+
 function authenticationMiddleware () {
 	return (req, res, next) => {
-		//console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport.user.username)}`);
-
 		if (req.isAuthenticated())
 			return next();
 		res.redirect('/login')

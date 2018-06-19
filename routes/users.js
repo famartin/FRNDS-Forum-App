@@ -6,6 +6,8 @@ const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
 const passport = require('passport');
 
+/** Check the Sign Up Form Fields **/
+
 var checkFormFields = function(req){
 	var fN = 'firstName';
 	var lN = 'lastName';
@@ -27,9 +29,13 @@ var checkFormFields = function(req){
 	req.checkBody(`${p2}`, `${p}s do not match`).equals(req.body.password);
 }
 
+/** Login GET Route **/
+
 router.get('/login', function(req, res){
 	res.render('login');
 });
+
+/** Login POST Route **/
 
 router.post('/login', passport.authenticate(
 	'local', {
@@ -37,25 +43,31 @@ router.post('/login', passport.authenticate(
 	failureRedirect: '/login'
 }));
 
+/** Logout GET Route **/
+
 router.get('/logout', function(req, res){
 	req.logout();
 	req.session.destroy();
 	res.redirect('/');
 });
 
+/** Sign Up GET Route **/
+
 router.get('/signup', function(req, res){
 	res.render('signup');
 });
 
+/** Sign Up POST Route **/
+
 router.post('/signup', function(req, res, next){
+	
 	checkFormFields(req);
 	console.log(req.body);
 
 	var errors = req.validationErrors();
-	if (errors){
-		//console.log(`errors: ${JSON.stringify(errors)}`);
+
+	if (errors)
 		res.render('signup', {errors: errors});
-	}
 	else{
 		var hash = bcrypt.hashSync(req.body.password, salt);
 		var user = new db.User({
@@ -68,7 +80,6 @@ router.post('/signup', function(req, res, next){
 
 		user.save(function(err){
 			if (err){
-				//console.log(err);
 				res.render('signup', {uniqueErrors: err});
 			}
 			else{
@@ -81,6 +92,8 @@ router.post('/signup', function(req, res, next){
 		});
 	}
 });
+
+/** Profile GET Route **/
 
 router.get('/profile/:username', function(req, res){
 	db.User.findOne({ username: req.params.username }, function(err, user){
@@ -96,6 +109,8 @@ router.get('/profile/:username', function(req, res){
 	});
 });
 
+/** Edit Profile GET Route **/
+
 router.get('/profile/:username/edit', authenticationMiddleware(), function(req, res){
 	db.User.findOne({ username: req.params.username }, function(err, user){
 		if (err) throw err;
@@ -106,6 +121,8 @@ router.get('/profile/:username/edit', authenticationMiddleware(), function(req, 
 			res.render('404');
 	});
 });
+
+/** Edit Profile POST Route **/
 
 router.post('/profile/:username/edit', authenticationMiddleware(), function(req, res){
 	db.User.findOneAndUpdate({ username: req.params.username }, {
@@ -122,6 +139,8 @@ router.post('/profile/:username/edit', authenticationMiddleware(), function(req,
 				res.render('404');
 	});
 });
+
+/** Remove User GET Route **/
 
 router.get('/profile/:username/remove', authenticationMiddleware(), function(req, res){
 	if (req.session.passport.user.username == req.params.username){
@@ -148,10 +167,10 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
+/** Checks to see if a user is currently in a session **/
+
 function authenticationMiddleware () {  
 	return (req, res, next) => {
-		//console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport.user.username)}`);
-
 		if (req.isAuthenticated())
 			return next();
 		res.redirect('/login')

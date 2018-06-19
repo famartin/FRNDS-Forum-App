@@ -18,7 +18,7 @@ var bcrypt = require('bcryptjs');
 var port = 3000;
 
 app.set('view engine', 'ejs');
-app.set('trust proxy', 1) // trust first proxy
+app.set('trust proxy', 1);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -35,9 +35,12 @@ app.use(session({
 	//cookie: { secure: true }
 }));
 
+/** Passport Initialization **/
+
 app.use(passport.initialize());
 app.use(passport.session());
 
+/** Global variables to use in views **/
 
 app.use(function(req, res, next){
 	res.locals.isAuthenticated = req.
@@ -55,6 +58,8 @@ app.use(function(req, res, next){
 
 app.use('/', users, post, chat);
 
+/** Passport Local Strategy **/
+
 passport.use(new LocalStrategy(
   function(username, password, done) {
 	db.User.findOne({ username: username }, function(err, user) {
@@ -62,17 +67,17 @@ passport.use(new LocalStrategy(
 			return done(err);
 		if (user == null)
 			return done(null, false);
-		bcrypt.compare(password, user.password, function(err, response){
+		bcrypt.compare(password, user.password, function(err, response) {
 			if (response == true)
-			{
 				return done(null, user);
-			}
 			else
 				return done(null, false);
 		});
 	});
   }
 ));
+
+/** Home Route **/
 
 app.get('/', function(req, res){
 	console.log('user: ' + JSON.stringify(req.user, ['username']));
@@ -87,12 +92,14 @@ app.get('/', function(req, res){
 	});
 });
 
+/** Socket.io Chat **/
+
 io.on('connection', function(socket){
 	console.log(socket.id);
 	socket.broadcast.emit('chat message', ' entered the room');
 	socket.on('chat message', function(msg){
 		console.log('message: ' + msg);
-		socket.broadcast.emit('chat message', msg);
+		socket.emit('chat message', msg);
 	});
 	
 	socket.on('typing', function(data){
@@ -103,6 +110,8 @@ io.on('connection', function(socket){
 		socket.broadcast.emit('chat message', ' left the room');
 	});
 });
+
+/** Listen to the specified port **/
 
 http.listen(port, function(){
 	console.log(`Listening on port ${port}`);

@@ -2,15 +2,22 @@ var 	mongoose = require('mongoose');
 var 	key = require('./keys.js');
 var	uniqueValidator = require('mongoose-unique-validator');
 
+/** Connect to Mongodb **/
+
 mongoose.connect("mongodb://" + key.username + ":" + key.password + "@ds153700.mlab.com:53700/chat-app");
 
 var 	Schema = mongoose.Schema;
 
 var 	db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
+
+/** Connection Message **/
+
 db.once('open', function(){
 	console.log('Database is connected!');
 });
+
+/** User Schema **/
 
 var	userSchema = 	new Schema({
 	firstName:	{type: String, required: true},
@@ -21,6 +28,8 @@ var	userSchema = 	new Schema({
 	img:		{data: Buffer, contentType: String}
 });
 
+/** Post Schema **/
+
 var	postSchema = 	new Schema({
 	title:		{type: String, required: true},
 	text:		{type: String},
@@ -28,6 +37,8 @@ var	postSchema = 	new Schema({
 	date:		{type: Date, default: Date.now}
 	
 });
+
+/** Comment Schema **/
 
 var	commentSchema =	new Schema({
 	text:		{type: String, required: true},
@@ -37,11 +48,15 @@ var	commentSchema =	new Schema({
 		
 });
 
+/** Unique check for the Sign Up Form fields **/
+
 userSchema.plugin(uniqueValidator, { message: 'This {PATH} is already taken, please choose another.' });
 
 var 	User = 		mongoose.model('User', userSchema);
 var	Post =		mongoose.model('Post', postSchema);
 var	Comment =	mongoose.model('Comment', commentSchema);
+
+/** Exports **/
 
 module.exports = {
 	db,
