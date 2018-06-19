@@ -56,6 +56,8 @@ app.use(function(req, res, next){
 	next();
 });
 
+
+
 app.use('/', users, post, chat);
 
 /** Passport Local Strategy **/
@@ -94,12 +96,22 @@ app.get('/', function(req, res){
 
 /** Socket.io Chat **/
 
+var usernames = {};
+
 io.on('connection', function(socket){
 	console.log(socket.id);
-	socket.broadcast.emit('chat message', ' entered the room');
-	socket.on('chat message', function(msg){
-		console.log('message: ' + msg);
-		socket.emit('chat message', msg);
+
+	socket.on('adduser', function(username){
+		socket.username = username;
+		usernames[username] = username;
+		socket.emit('chat message', 'you have connected');
+		socket.broadcast.emit('chat message', username + ' entered chat');
+		io.sockets.emit('updateusers', usernames);
+	});
+
+	socket.on('chat message', function(data){
+		console.log('message: ' + data);
+		socket.broadcast.emit('chat message', data);
 	});
 	
 	socket.on('typing', function(data){
@@ -107,7 +119,9 @@ io.on('connection', function(socket){
 	});
 	
 	socket.on('disconnect', function(){
-		socket.broadcast.emit('chat message', ' left the room');
+		delete usernames[socket.username];
+		io.sockets.emit('updateusers', usernames);
+		socket.broadcast.emit('chat message', socket.username + ' left chat');
 	});
 });
 

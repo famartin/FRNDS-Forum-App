@@ -10,15 +10,18 @@
 	<h5 id="chat-username" class="raleway" value="<%= username %>"><%= username %></h5>
 	<div id="chat">
 		<div id="chat-window">
-			<div id="output">
-			</div>
-			<div id="feedback">
-			</div>
-		</div>
-	
-		<form action="">
-			<input id="m" autocomplete="off" placeholder="say something..." /><button id="chat-button">Send</button>
+			<div id="output"></div>
+			<div id="feedback"></div>
+		</div>	
+		<form>
+			<input type="text" readonly class="form-control-plaintext" id="handle" value="<%= username %>">
+			<input id="message" autocomplete="off" placeholder="say something..." />
+			<button type="submit" id="chat-button">Send</button>
+			<button type="button" id="users-button" data-toggle="collapse" data-target="#users" aria-expanded="false" aria-controls="users">
+				Users
+			</button>
 		</form>
+		<ul style="color:#515151;" class="collapse list-group-flush list-group" id="users"></ul>
 	</div>
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
