@@ -62,8 +62,7 @@ app.use('/', users, post, chat);
 
 /** Passport Local Strategy **/
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
+passport.use(new LocalStrategy(function(username, password, done) {
 	db.User.findOne({ username: username }, function(err, user) {
   		if (err)
 			return done(err);
@@ -76,8 +75,7 @@ passport.use(new LocalStrategy(
 				return done(null, false);
 		});
 	});
-  }
-));
+}));
 
 /** Home Route **/
 

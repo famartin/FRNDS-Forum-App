@@ -3,9 +3,7 @@ $(function(){
 	var m = document.getElementById('message');
 	var username = document.getElementById('chat-username');
 
-	socket.on('connect', function(){
-		socket.emit('adduser', $('#chat-username').text());
-	});
+	/** When a user clicks the 'SEND' button **/
 
 	$('form').submit(function(){
 		socket.emit('chat message', $('#chat-username').text() + ': ' + $('#message').val());
@@ -13,9 +11,19 @@ $(function(){
                 return false;
 	});
 
+	/** When a user presses a key while in the '#message' input field **/
+
 	m.addEventListener('keypress', function(){
 		socket.emit('typing', $('#chat-username').text());
 	});
+
+	/** When a user connects **/
+
+	socket.on('connect', function(){
+		socket.emit('adduser', $('#chat-username').text());
+	});
+	
+	/** Listen for events from the back end **/
 
  	socket.on('chat message', function(msg){
 		document.getElementById('feedback').innerHTML = '';

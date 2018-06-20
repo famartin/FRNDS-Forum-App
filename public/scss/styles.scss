@@ -1,8 +1,8 @@
 body{
-  background-color: #adccb9;//#90ccc0;
+  background-color: #e0e0e0;//#9eb0bc;//#adccb9;//#90ccc0;
   padding-top: 16%;
   //background-image: url("https://webgradients.com/public/webgradients_png/032%20Sharpeye%20Eagle.png");
-  color: white;
+  color: #7c7c7c;//#2B2D42;//#474747;
 }
 
 .raleway{
@@ -10,7 +10,7 @@ body{
 }
 
 nav{
-  background-color: #adccb9;//#90ccc0;
+  background-color: #e0e0e0;//#9eb0bc;//#adccb9;//#90ccc0;
 }
 
 #chat{
@@ -36,7 +36,7 @@ nav{
 }
 
 #chat-button{
-  background: #bee597;
+  background: #a4d8c3;
   color: #515151;
   font-size: 18px;
   border: 0;
@@ -75,6 +75,10 @@ nav{
   display: flex;
   -ms-flex-align: center;
   align-items: center;
+}
+
+.green-button{
+  background-color: #a4d8c3;
 }
 
 .form-signin {
