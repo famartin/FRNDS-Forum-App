@@ -7,8 +7,8 @@ const passport = require('passport');
 /** Check Post Form Fields **/
 
 var checkPostFields = function(req){
-	req.checkBody('postTitle', 'Title can not be empty.').notEmpty();
-	req.checkBody('postTitle', 'Title must be between 1-70 characters long.').len(1, 70);
+	req.checkBody('postTitle', 'Title can not be empty').notEmpty();
+	req.checkBody('postTitle', 'Title must not exceed 70 characters long').len(1, 70);
 }
 
 /** Check Comment Form Fields **/
@@ -28,7 +28,6 @@ router.get('/post', authenticationMiddleware(), function(req, res){
 router.post('/post', authenticationMiddleware(), function(req, res){
 	
 	checkPostFields(req);
-	console.log(req.body);
 
 	var errors = req.validationErrors();
 
@@ -92,7 +91,7 @@ router.get('/remove/:id', authenticationMiddleware(), function(req, res){
 
 router.post('/comment/:postId', authenticationMiddleware(), function(req, res){
 	checkCommentFields(req);
-	console.log(req.body);
+	
 	var errors = req.validationErrors();
 	if(errors){
 		res.redirect('/');

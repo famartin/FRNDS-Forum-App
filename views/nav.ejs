@@ -1,15 +1,3 @@
-<!--<nav>
-<a href="/">HOME</a>
-<% if (isAuthenticated == false) { %>
-<a href="/login">LOGIN</a>
-<% } %>
-<a href="/post">POST</a>
-<a href="#">CHAT</a>
-<% if (isAuthenticated == true) { %>
-<a href="/profile/<%= username %>">PROFILE</a>
-<a href="/logout">LOGOUT</a>
-<% } %>
-</nav>-->
 <nav class="navbar fixed-top navbar-expand-lg navbar-light">
   <a class="navbar-brand" href="/">FRNDS</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,10 +16,13 @@
       </li>
 	<% if (isAuthenticated == false) { %>
       	<li class="nav-item">
-        	<a class="nav-link" href="/login">Login</a>
+		<a class="nav-link" href="/login">Login</a>
       	</li>
 	<% } %>
 	<% if (isAuthenticated == true) { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/message">Message</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="/profile/<%= username %>">Profile</a>
         </li>

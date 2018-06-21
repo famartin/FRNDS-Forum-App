@@ -99,13 +99,23 @@ router.get('/profile/:username', function(req, res){
 	db.User.findOne({ username: req.params.username }, function(err, user){
 		if (err) throw err;
 		console.log(user)
-		if (user != null)
+		if (user != null){
 			db.Post.find({ author: req.params.username }, function(err, posts){
 				if(err) throw err;
-				res.render('profile', {user: user, posts: posts});
+				if (req.session.passport.user.username == req.params.username){
+					db.Message.find({ toUsername: req.params.username }, function(err, messages){
+						if (err) throw err;
+						res.render('profile', {user: user, posts: posts, messages: messages});
+					});
+				}
+				else{
+					res.render('profile', {user: user, posts: posts});
+				}
 			});
-		else
+		
+		}else{
 			res.render('404');
+		}
 	});
 });
 

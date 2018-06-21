@@ -1,0 +1,33 @@
+<html>
+<head>
+<%- include('head'); -%>
+</head>
+<body class="text-center">
+<%- include('nav'); -%>
+	<div class="container">
+		<h2 class="raleway">Message</h2>
+		<br>
+		<% if (typeof errors != 'undefined') { %>
+			<% for(var i=0;i < errors.length; i++) { %>
+				<div class="alert alert-danger" role="alert">
+					<%= errors[i].msg %>
+				</div>
+			<% } %>
+		<% } %>
+		<% if (typeof notFound != 'undefined') { %>
+			<div class="alert alert-danger" role="alert">
+				<%= notFound %>
+			</div>
+		<% } %>
+		<form action="/message" method="POST">
+			<div class="form-group">
+				<input type="text" class="form-control" id="toUsername" name="toUsername" placeholder="Send to..." autocomplete="off" autofocus required>
+			</div>
+			<div class="form-group">
+				<textarea  type="text" class="form-control" id="messageText" name="messageText" rows="8" required></textarea>
+			</div>
+			<button type="submit" class="btn btn-light">Send</button>
+		</form>
+	</div>
+</body>
+</html>

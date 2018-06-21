@@ -48,6 +48,15 @@ var	commentSchema =	new Schema({
 		
 });
 
+/** Message Schema **/
+
+var	messageSchema = new Schema({
+	toUsername:	{type: String, required: true},
+	fromUsername:	{type: String, required: true},
+	messageText:	{type: String, required: true},
+	date:		{type: Date, default: Date.now}
+});
+
 /** Unique check for the Sign Up Form fields **/
 
 userSchema.plugin(uniqueValidator, { message: 'This {PATH} is already taken, please choose another.' });
@@ -55,6 +64,7 @@ userSchema.plugin(uniqueValidator, { message: 'This {PATH} is already taken, ple
 var 	User = 		mongoose.model('User', userSchema);
 var	Post =		mongoose.model('Post', postSchema);
 var	Comment =	mongoose.model('Comment', commentSchema);
+var	Message =	mongoose.model('Message', messageSchema);
 
 /** Exports **/
 
@@ -62,5 +72,6 @@ module.exports = {
 	db,
 	User,
 	Post,
-	Comment
+	Comment,
+	Message
 };

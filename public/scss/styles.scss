@@ -1,5 +1,15 @@
+$bgColor: #e0e0e0;
+
+%chatButton {
+  font-size: 18px;
+  border: 0;
+  padding: 12px 0;
+  width: 100%;
+  border-radius: 0 0 2px 2px;	
+}
+
 body{
-  background-color: #e0e0e0;//#9eb0bc;//#adccb9;//#90ccc0;
+  background-color: $bgColor;//#9eb0bc;//#adccb9;//#90ccc0;
   padding-top: 16%;
   //background-image: url("https://webgradients.com/public/webgradients_png/032%20Sharpeye%20Eagle.png");
   color: #7c7c7c;//#2B2D42;//#474747;
@@ -10,7 +20,7 @@ body{
 }
 
 nav{
-  background-color: #e0e0e0;//#9eb0bc;//#adccb9;//#90ccc0;
+  background-color: $bgColor;//#9eb0bc;//#adccb9;//#90ccc0;
 }
 
 #chat{
@@ -26,23 +36,15 @@ nav{
 }
 
 #users-button{
+  @extend %chatButton;
   background: #7e92b2;
   color: #fff;
-  font-size: 18px;
-  border: 0;
-  padding: 12px 0;
-  width: 100%;
-  border-radius: 0 0 2px 2px;
 }
 
 #chat-button{
+  @extend %chatButton;
   background: #a4d8c3;
   color: #515151;
-  font-size: 18px;
-  border: 0;
-  padding: 12px 0;
-  width: 100%;
-  border-radius: 0 0 2px 2px;
 }
 
 #output p{
