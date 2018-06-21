@@ -58,6 +58,17 @@ router.post('/message', authenticationMiddleware(), function(req, res){
 	}
 });
 
+/** Show Message GET Route **/
+router.get('/show/message/:id', function(req, res){
+	
+});
+
+/** Remove Message GET Route **/
+
+router.get('/remove/message/:id', function(req, res){
+	
+});
+
 /** Check to see if a user is signed in **/
 
 function authenticationMiddleware () {

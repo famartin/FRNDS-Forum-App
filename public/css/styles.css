@@ -1,4 +1,6 @@
-#chat-button, #users-button {
+#chat-button, #users-button,
+#messages-button,
+#posts-button {
   font-size: 18px;
   border: 0;
   padding: 12px 0;
@@ -32,9 +34,16 @@ nav {
   background: white;
 }
 
-#users-button {
+#users-button,
+#messages-button,
+#posts-button {
   background: #7e92b2;
   color: #fff;
+}
+
+#posts-button {
+  background: #fff;
+  color: #7e92b2;
 }
 
 #chat-button {

@@ -1,6 +1,6 @@
 $bgColor: #e0e0e0;
 
-%chatButton {
+%fullButton {
   font-size: 18px;
   border: 0;
   padding: 12px 0;
@@ -35,14 +35,22 @@ nav{
   background: white;
 }
 
-#users-button{
-  @extend %chatButton;
+#users-button,
+#messages-button,
+#posts-button{
+  @extend %fullButton;
   background: #7e92b2;
   color: #fff;
 }
 
+#posts-button{
+  @extend %fullButton;
+  background: #fff;
+  color: #7e92b2;
+}
+
 #chat-button{
-  @extend %chatButton;
+  @extend %fullButton;
   background: #a4d8c3;
   color: #515151;
 }
