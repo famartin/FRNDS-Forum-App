@@ -17,9 +17,9 @@
 					<div class="form-group">
 						<textarea class="shadow-sm form-control" id="comment" name="comment" rows="2" placeholder="What are your thoughts?" required></textarea>
 					</div>
-					<button type="submit" class="btn green-button">Comment</button>
+					<button type="submit" class="btn green-button wide-button">Comment</button>
 					<% if (username == post.author) { %>
-					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#removeConfirmation">Remove</button>
+					<button type="button" class="btn btn-danger wide-button" data-toggle="modal" data-target="#removeConfirmation">Remove Post</button>
 					<div style="color:black;" class="modal fade" id="removeConfirmation" tabindex="-1" role="dialog" aria-labelledby="removeConfirmation" aria-hidden="true">
   						<div class="modal-dialog modal-dialog-centered" role="document">
     							<div class="modal-content">

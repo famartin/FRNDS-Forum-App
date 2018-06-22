@@ -1,6 +1,6 @@
 #chat-button, #users-button,
 #messages-button,
-#posts-button {
+#posts-button, .wide-button {
   font-size: 18px;
   border: 0;
   padding: 12px 0;

@@ -5,7 +5,7 @@
 	<body class="text-center">
 		<%- include('nav'); -%>
 		<div class="container">
-			<h2 class="raleway"><%= user.firstName %>'s posts</h2>
+			<h2 class="raleway"><%= user.firstName %></h2>
 			<h3 class="raleway">(<%= user.username %>)</h3>
 			<% if (typeof posts != undefined) { %>
 				<button type="button" id="posts-button" data-toggle="collapse" data-target="#posts" aria-expanded="false" aria-controls="posts">Posts</button><br>
@@ -24,13 +24,14 @@
                                 </div>
 			<% } %>
 			<br>
+			<% if (typeof username != undefined)  { %>
 			<% if (username == user.username) { %>
 				<a href="/profile/<%= user.username %>/edit">
-					<button type="button" class="btn btn-light">
+					<button type="button" class="btn btn-light wide-button">
 						Edit Profile
 					</button>
-				</a>
-					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#removeUserConfirmation">
+				</a><br><br>
+					<button type="button" class="btn btn-secondary wide-button" data-toggle="modal" data-target="#removeUserConfirmation">
 						Delete Account
 					</button>
 					<div class="modal fade" id="removeUserConfirmation" tabindex="-1" role="dialog" aria-labelledby="removeUserConfirmation" aria-hidden="true">
@@ -54,6 +55,7 @@
     </div>
   </div>
 </div>
+			<% } %>
 			<% } %>
 		</div>
 	</body>

@@ -5,7 +5,7 @@ $bgColor: #e0e0e0;
   border: 0;
   padding: 12px 0;
   width: 100%;
-  border-radius: 0 0 2px 2px;	
+  border-radius: 0 0 2px 2px;
 }
 
 body{
@@ -21,6 +21,10 @@ body{
 
 nav{
   background-color: $bgColor;//#9eb0bc;//#adccb9;//#90ccc0;
+}
+
+.wide-button{
+  @extend %fullButton; 
 }
 
 #chat{

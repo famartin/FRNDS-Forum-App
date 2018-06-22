@@ -27,7 +27,6 @@ router.get('/message', authenticationMiddleware(), function(req, res){
 /** Message POST Route **/
 
 router.post('/message', authenticationMiddleware(), function(req, res){
-
 	checkMessageFields(req);
 
 	var errors = req.validationErrors();
@@ -36,9 +35,7 @@ router.post('/message', authenticationMiddleware(), function(req, res){
 		res.render('message', {errors: errors});
 	}else{
 		db.User.findOne({username: req.body.toUsername}, function(err, user){
-			if (err)
-				throw err;
-
+			if (err) throw err;
 			if (user != null){
 				var message = new db.Message({
 					toUsername: user.username,
@@ -47,8 +44,7 @@ router.post('/message', authenticationMiddleware(), function(req, res){
 				});
 
 				message.save(function(err){
-					if(err)
-						throw err;
+					if(err) throw err;
 					res.redirect('back');
 				});
 			}else{
@@ -59,19 +55,41 @@ router.post('/message', authenticationMiddleware(), function(req, res){
 });
 
 /** Show Message GET Route **/
-router.get('/show/message/:id', function(req, res){
-	
+router.get('/show-message/:id', authenticationMiddleware(), function(req, res){
+	db.Message.findById(req.params.id, function(err, message){
+		if (message != null){
+			if (req.session.passport.user.username == message.toUsername){
+				res.render('show-message', {message: message});
+			}else{
+				res.redirect('/');
+			}
+		}else{
+			res.redirect('/');
+		}
+	});
 });
 
 /** Remove Message GET Route **/
 
-router.get('/remove/message/:id', function(req, res){
-	
+router.get('/remove/message/:id', authenticationMiddleware(), function(req, res){
+	db.Message.findById(req.params.id, function(err, message){
+		if (message != null){
+			if (req.session.passport.user.username == message.toUsername){
+				db.Message.findByIdAndDelete(req.params.id, function(err, message){
+					res.redirect(`/profile/${message.toUsername}`);
+				});
+			}else{
+				res.redirect('/');
+			}
+		}else{
+			res.redirect('/');
+		}
+	});
 });
 
 /** Check to see if a user is signed in **/
 
-function authenticationMiddleware () {
+function authenticationMiddleware() {
         return (req, res, next) => {
                 if (req.isAuthenticated())
                 	return next();

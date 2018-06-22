@@ -56,8 +56,6 @@ app.use(function(req, res, next){
 	next();
 });
 
-
-
 app.use('/', users, post, chat);
 
 /** Passport Local Strategy **/
@@ -97,8 +95,6 @@ app.get('/', function(req, res){
 var usernames = {};
 
 io.on('connection', function(socket){
-	console.log(socket.id);
-
 	socket.on('adduser', function(username){
 		socket.username = username;
 		usernames[username] = username;

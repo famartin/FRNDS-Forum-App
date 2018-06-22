@@ -1,7 +1,19 @@
 <html>
-<head>
-</head>
-<body>
-<%- include('nav'); -%>
-</body>
+	<head>
+		<%- include('head'); -%>
+	</head>
+	<body class="text-center">
+		<%- include('nav'); -%>
+		<div class="container">
+			<h5 class="raleway">From <%= message.fromUsername %></h5>
+			<p><%= message.messageText %></p>
+			<a href="/remove/message/<%= message._id %>"><button class=" btn btn-danger wide-button">Erase</button></a><br><br>
+			<form action="/message" method="POST">
+				<div class="form-group">
+					<textarea  type="text" class="form-control" id="postText" name="postText" rows="5" placeholder="Reply..."></textarea>
+				</div>
+				<button type="submit" class="btn btn-light wide-button">Reply</button>
+			</form>
+		</div>
+	</body>
 </html>

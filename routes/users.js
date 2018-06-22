@@ -38,10 +38,11 @@ router.get('/login', function(req, res){
 /** Login POST Route **/
 
 router.post('/login', passport.authenticate(
-	'local', {
+	'local',{
 	successRedirect: '/',
 	failureRedirect: '/login'
-}));
+	}
+));
 
 /** Logout GET Route **/
 
@@ -60,15 +61,13 @@ router.get('/signup', function(req, res){
 /** Sign Up POST Route **/
 
 router.post('/signup', function(req, res, next){
-	
 	checkFormFields(req);
-	console.log(req.body);
 
 	var errors = req.validationErrors();
 
-	if (errors)
+	if(errors){
 		res.render('signup', {errors: errors});
-	else{
+	}else{
 		var hash = bcrypt.hashSync(req.body.password, salt);
 		var user = new db.User({
 			firstName: req.body.firstName,
@@ -97,16 +96,19 @@ router.post('/signup', function(req, res, next){
 
 router.get('/profile/:username', function(req, res){
 	db.User.findOne({ username: req.params.username }, function(err, user){
-		if (err) throw err;
-		console.log(user)
 		if (user != null){
 			db.Post.find({ author: req.params.username }, function(err, posts){
 				if(err) throw err;
-				if (req.session.passport.user.username == req.params.username){
-					db.Message.find({ toUsername: req.params.username }, function(err, messages){
-						if (err) throw err;
-						res.render('profile', {user: user, posts: posts, messages: messages});
-					});
+				if (req.isAuthenticated() == true){
+					if (req.session.passport.user.username == req.params.username){
+						db.Message.find({ toUsername: req.params.username }, function(err, messages){
+							if (err) throw err;
+							res.render('profile', {user: user, posts: posts, messages: messages});
+						});
+					}
+					else{
+						res.render('profile', {user: user, posts: posts});
+					}
 				}
 				else{
 					res.render('profile', {user: user, posts: posts});
@@ -124,11 +126,11 @@ router.get('/profile/:username', function(req, res){
 router.get('/profile/:username/edit', authenticationMiddleware(), function(req, res){
 	db.User.findOne({ username: req.params.username }, function(err, user){
 		if (err) throw err;
-		console.log(user)
-		if (user != null && req.session.passport.user.username == req.params.username)
+		if (user != null && req.session.passport.user.username == req.params.username) {
 			res.render('update', {user: user});
-		else
+		}else{
 			res.render('404');
+		}
 	});
 });
 
@@ -142,11 +144,11 @@ router.post('/profile/:username/edit', authenticationMiddleware(), function(req,
 		username: req.body.username
 		}, function(err, user){
 			if (err) throw err;
-			console.log(user)
-			if (user != null && req.session.passport.user.username == req.params.username)
+			if (user != null && req.session.passport.user.username == req.params.username) {
 				res.render('profile', {user: user});
-			else
+			}else{
 				res.render('404');
+			}
 	});
 });
 
@@ -156,30 +158,30 @@ router.get('/profile/:username/remove', authenticationMiddleware(), function(req
 	if (req.session.passport.user.username == req.params.username){
 		db.User.findOneAndDelete({ username: req.params.username }, function(err, user){
 			if (err) throw err;
-			console.log(user)
-			if (user != null && req.session.passport.user.username == req.params.username)
+			if (user != null && req.session.passport.user.username == req.params.username){
 				res.redirect('/logout');
-			else
+			}else{
 				res.redirect('/');
+			}
 		});
-	}
-	else
+	}else{
 		res.redirect('/');
+	}
 });
 
-passport.serializeUser(function(id, done) {
-  done(null, id);
+passport.serializeUser(function(id, done){
+	done(null, id);
 });
  
-passport.deserializeUser(function(id, done) {
-  db.User.findById(id, function (err, user) {
-    done(err, id);
-  });
+passport.deserializeUser(function(id, done){
+	db.User.findById(id, function (err, user){
+		done(err, id);
+	});
 });
 
 /** Checks to see if a user is currently in a session **/
 
-function authenticationMiddleware () {  
+function authenticationMiddleware(){  
 	return (req, res, next) => {
 		if (req.isAuthenticated())
 			return next();
