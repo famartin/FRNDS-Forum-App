@@ -1,10 +1,10 @@
 var 	mongoose = require('mongoose');
 var 	key = require('./keys.js');
-var	uniqueValidator = require('mongoose-unique-validator');
+var		uniqueValidator = require('mongoose-unique-validator');
 
 /** Connect to Mongodb **/
 
-mongoose.connect("mongodb://" + key.username + ":" + key.password + "@ds153700.mlab.com:53700/chat-app");
+mongoose.connect("mongodb://" + key.username + ":" + key.password + "@ds249818.mlab.com:49818/nodejschat-app");
 
 var 	Schema = mongoose.Schema;
 
