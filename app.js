@@ -78,11 +78,11 @@ passport.use(new LocalStrategy(function(username, password, done) {
 /** Home Route **/
 
 app.get('/', function(req, res){
-	console.log('user: ' + JSON.stringify(req.user, ['username']));
-	console.log('authenticated: ' + req.isAuthenticated());
+	//console.log('user: ' + JSON.stringify(req.user, ['username']));
+	//console.log('authenticated: ' + req.isAuthenticated());
 	db.Post.find(function(err, posts){
 		if (err) throw err;
-		console.log(posts);
+		//console.log(posts);
 		if (posts != null)
 			res.render('home', {posts: posts})
 		else
