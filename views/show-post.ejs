@@ -4,7 +4,7 @@
 	</head>
 	<body class="text-center">
 		<%- include('nav'); -%>
-		<div class="container">
+		<div class="container content-center">
 			<h2 class="raleway"><%= post.title %></h2>
 			<h4 class="raleway m-3">by <a style="color:grey;text-decoration:none;"href="/profile/<%= post.author %>"><%= post.author %></a></h4>
 			<% if (post.text != "") { %>

@@ -1,4 +1,4 @@
-$bgColor: #e0e0e0;
+$bgColor: linear-gradient(#fff, #a5b5cc);
 
 %fullButton {
   font-size: 18px;
@@ -9,10 +9,11 @@ $bgColor: #e0e0e0;
 }
 
 body{
-  background-color: $bgColor;//#9eb0bc;//#adccb9;//#90ccc0;
+  background: $bgColor;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   padding-top: 16%;
-  //background-image: url("https://webgradients.com/public/webgradients_png/032%20Sharpeye%20Eagle.png");
-  color: #7c7c7c;//#2B2D42;//#474747;
+  color: #7c7c7c;
 }
 
 .raleway{
@@ -20,7 +21,13 @@ body{
 }
 
 nav{
-  background-color: $bgColor;//#9eb0bc;//#adccb9;//#90ccc0;
+  background: transparent !important;
+}
+
+.content-center {
+  width: 65%;
+  display: block;
+  margin: 0 auto;
 }
 
 .wide-button{

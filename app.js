@@ -84,7 +84,7 @@ app.get('/', function(req, res){
 		if (err) throw err;
 		//console.log(posts);
 		if (posts != null)
-			res.render('home', {posts: posts})
+			res.render('home', {posts: posts});
 		else
 			res.render('home');
 	});

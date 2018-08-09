@@ -9,7 +9,9 @@
 }
 
 body {
-  background-color: #e0e0e0;
+  background: linear-gradient(#fff, #a5b5cc);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   padding-top: 16%;
   color: #7c7c7c;
 }
@@ -19,7 +21,13 @@ body {
 }
 
 nav {
-  background-color: #e0e0e0;
+  background: transparent !important;
+}
+
+.content-center {
+  width: 65%;
+  display: block;
+  margin: 0 auto;
 }
 
 #chat {
