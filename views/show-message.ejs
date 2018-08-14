@@ -5,8 +5,10 @@
 	<body class="text-center">
 		<%- include('nav'); -%>
 		<div class="container content-center">
-			<h5 class="raleway">From <%= message.fromUsername %></h5>
-			<p><%= message.messageText %></p>
+			<div style="margin-top:9em;color:#545454" class="shadow-sm p-4 mb-4 bg-white rounded">
+				<h5  class="raleway">From: <%= message.fromUsername %></h5>
+            	<p style="word-wrap:break-word"><%= message.messageText %></p>
+			</div>
 			<br>
 			<form action="/message" method="POST">
 				<div class="form-group">

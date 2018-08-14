@@ -90,6 +90,12 @@ app.get('/', function(req, res){
 	});
 });
 
+/** 404 Route **/
+
+app.get('*', function(req, res){
+  res.render('404');
+});
+
 /** Socket.io Chat **/
 
 var usernames = {};

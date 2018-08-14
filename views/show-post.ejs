@@ -5,11 +5,11 @@
 	<body class="text-center">
 		<%- include('nav'); -%>
 		<div class="container content-center">
-			<h2 class="raleway"><%= post.title %></h2>
+			<h2 style="margin-top:4em" class="raleway"><%= post.title %></h2>
 			<h4 class="raleway m-3">by <a style="color:grey;text-decoration:none;"href="/profile/<%= post.author %>"><%= post.author %></a></h4>
 			<% if (post.text != "") { %>
 				<div style="color:#545454;" class="shadow-sm p-4 mb-4 bg-white rounded">
-					<p><%= post.text %></p>
+					<p style="word-wrap:break-word"><%= post.text %></p>
 				</div>
 			<% } %>
 			<% if (isAuthenticated == true) { %>
