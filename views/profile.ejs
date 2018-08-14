@@ -5,7 +5,7 @@
 	<body class="text-center">
 		<%- include('nav'); -%>
 		<div class="container content-center">
-			<h2 class="raleway"><%= user.firstName %></h2>
+			<h2 style="margin-top:4em" class="raleway"><%= user.firstName %></h2>
 			<h3 class="raleway">(<%= user.username %>)</h3>
 			<% if (typeof posts != undefined) { %>
 				<button type="button" id="posts-button" data-toggle="collapse" data-target="#posts" aria-expanded="false" aria-controls="posts">Posts</button><br>

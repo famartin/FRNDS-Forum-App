@@ -23,10 +23,5 @@
     "passport-local": "^1.0.0",
     "randomstring": "^1.1.5",
     "socket.io": "^2.1.1"
-  },
-  "devDependencies": {
-    "css-loader": "^0.28.11",
-    "style-loader": "^0.21.0",
-    "webpack": "^4.12.1"
   }
 }
