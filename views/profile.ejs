@@ -8,16 +8,16 @@
 			<h2 style="margin-top:4em" class="raleway"><%= user.firstName %></h2>
 			<h3 class="raleway">(<%= user.username %>)</h3>
 			<% if (typeof posts != undefined) { %>
-				<button type="button" id="posts-button" data-toggle="collapse" data-target="#posts" aria-expanded="false" aria-controls="posts">Posts</button><br>
-                                <div id="posts" style="color:black;"class="list-group shadow-sm p-1 rounded collapse">
+				<button style="width:75%" type="button" id="posts-button" data-toggle="collapse" data-target="#posts" aria-expanded="false" aria-controls="posts">Posts</button><br>
+                                <div id="posts" style="color:black;width:75%;margin: 0 auto" class="list-group shadow-sm p-1 rounded collapse">
                                         <% for(var i=posts.length - 1; i >= 0; i--) { %>
                                                 <a style="color:grey;" href="/show-post/<%= posts[i]._id %>" class="list-group-item list-group-item-action"><%= posts[i].title %></a>
                                         <% } %>
                                 </div>
-                        <% } %><br>
+                        <% } %>
 			<% if (typeof messages != 'undefined') { %>
-				<button type="button" id="messages-button" data-toggle="collapse" data-target="#messages" aria-expanded="false" aria-controls="messages">Messages</button><br>
-                                <div id="messages" style="color:black;"class="list-group shadow-sm p-1 rounded collapse">
+				<button style="width:75%" type="button" id="messages-button" data-toggle="collapse" data-target="#messages" aria-expanded="false" aria-controls="messages">Messages</button><br>
+                                <div id="messages" style="color:black;width:75%;margin:0 auto" class="list-group shadow-sm p-1 rounded collapse">
                                         <% for(var i=messages.length - 1; i >= 0; i--) { %>
                                         	<a style="color: grey;" href="/show-message/<%= messages[i]._id %>" class="list-group-item list-group-item-action"><%= messages[i].messageText %></a>
                                         <% } %>
@@ -26,15 +26,15 @@
 			<br>
 			<% if (typeof username != undefined)  { %>
 			<% if (username == user.username) { %>
-				<a href="/profile/<%= user.username %>/edit">
-					<button type="button" class="btn btn-light wide-button">
+				<button type="button" class="btn btn-link">
+					<a href="/profile/<%= user.username %>/edit">
 						Edit Profile
-					</button>
-				</a><br><br>
-					<button type="button" class="btn btn-secondary wide-button" data-toggle="modal" data-target="#removeUserConfirmation">
-						Delete Account
-					</button>
-					<div class="modal fade" id="removeUserConfirmation" tabindex="-1" role="dialog" aria-labelledby="removeUserConfirmation" aria-hidden="true">
+					</a>
+				</button>
+				<button type="button" class="btn btn-link" data-toggle="modal" data-target="#removeUserConfirmation">
+					Delete Account
+				</button>
+				<div class="modal fade" id="removeUserConfirmation" tabindex="-1" role="dialog" aria-labelledby="removeUserConfirmation" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div style="color:black;" class="modal-content">
       <div class="modal-header">
